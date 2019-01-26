@@ -1,35 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import List from './components/List.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+      user: '',
+      mood: '',
+      oldUser: false,
+      newUser: false,
+      loggedin: false
     }
+    this.handleUser = this.handleUser.bind(this);
   }
 
-  componentDidMount() {
-    $.ajax({
-      url: '/items', 
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
+  handleUser (e) {
+    let formChanger = {}
+    formChanger[e.target.name] = true;
+    this.setState(formChanger);
   }
 
   render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+    if (this.state.oldUser === false && this.state.newUser === false) {
+      return (
+        <div className="login-form">
+          <button name="oldUser" onClick={(e) => {e.preventDefault(); handleUser()}}>Existing User</button>
+          <button name="newUser" onClick={(e) => {e.preventDefault(); handleUser()}}>Create a new account!</button>
+        </div>
+      )
+    }
+    if (this.state.oldUser === true) {
+      return (
+        <div className="login-form">
+
+        </div>
+      )
+    }
   }
 }
 
