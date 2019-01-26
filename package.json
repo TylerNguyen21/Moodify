@@ -1,7 +1,6 @@
 {
   "name": "github-fetcher-fullstack-v2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "react-dev": "webpack -d --watch",
@@ -25,5 +24,14 @@
     "mysql": "^2.13.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackreactor/hrsf108-mvp-starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hackreactor/hrsf108-mvp-starter/issues"
+  },
+  "homepage": "https://github.com/hackreactor/hrsf108-mvp-starter#readme",
+  "description": ""
 }
