@@ -9,6 +9,7 @@ var app = express();
 // UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 // UNCOMMENT FOR ANGULAR
 // app.use(express.static(__dirname + '/../angular-client'));
 // app.use(express.static(__dirname + '/../node_modules'));

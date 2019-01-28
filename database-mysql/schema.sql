@@ -5,15 +5,16 @@ use moodify;
 
 CREATE TABLE users (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  username varchar(50) NOT NULL,
-  password varchar(50) NOT NULL,
-  email varchar(50) NOT NULL,
-  mood varchar(50)
+  username varchar(200) NOT NULL,
+  name varchar(200) NOT NULL,
+  password varchar(200) NOT NULL,
+  email varchar(200) NOT NULL
 );
 
 CREATE TABLE songs (
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  song_name varchar(50) NOT NULL,
+  song_name varchar(200) NOT NULL,
+  artist varchar(50) NOT NULL,
   genre varchar(50) NOT NULL
 );
 

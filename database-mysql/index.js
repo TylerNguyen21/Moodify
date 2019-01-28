@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'password',
-  database : 'test'
+  database : 'moodify'
 });
 
 var selectAll = function(callback) {
@@ -17,4 +17,8 @@ var selectAll = function(callback) {
   });
 };
 
-module.exports.selectAll = selectAll;
+module.exports = {
+  connection,
+  selectAll
+}
+  
