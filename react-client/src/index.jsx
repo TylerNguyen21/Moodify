@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Pusher from 'pusher-js';
+import Bot from './components/Bot.jsx'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
       user: '',
-      mood: '',
       oldUser: false,
       newUser: false,
       loggedIn: false,
@@ -27,7 +28,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // this.getUsers();
+    this.getUsers();
   }
 
   getUsers () {
@@ -38,7 +39,16 @@ class App extends React.Component {
       }
     })
     .then ((users) => {
-      console.log(users);
+      return users.json();
+    })
+    .then((data)=> {
+      let accounts = [];
+      for (let x =0; x < data.length; x+=1) {
+        accounts.push(data[x].username);
+      }
+      this.setState({
+        usersList: accounts
+      })
     })
   }
 
@@ -48,11 +58,26 @@ class App extends React.Component {
       'password': this.state.password
     }
     fetch('/login', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
       body: JSON.stringify(checker)
+    })
+    .then((answer) => {
+      let data = answer.json();
+      return data;
+    })
+    .then((info) => {
+      let person = info[0].name
+        this.setState({
+          loggedIn: true,
+          name: person
+        });
+    })
+    .catch((error) => {
+      console.log(error);
+      alert('You have the wrong username/password combination')
     })
   }
 
@@ -62,14 +87,14 @@ class App extends React.Component {
     this.setState(formChanger);
   }
 
-  handleInput () {
+  handleInput (e) {
     let change = {}
     change[e.target.name] = e.target.value;
     this.setState(change)
   }
 
   userNameChecker () {
-    if (usersList.includes(this.state.userName)) {
+    if (this.state.usersList.includes(this.state.userName)) {
       alert(`The username you have chosen has already been taken`)
       return
     } else {
@@ -100,11 +125,15 @@ class App extends React.Component {
       },
       body: JSON.stringify(info)
     })
-    .then(() => {
+    .then((result) => {
       alert('Congratulations you have made your account!');
       account.setState({
-        user: account.state.name
-      })
+        user: account.state.name,
+        loggedIn: true
+      });
+    })
+    .catch((error) => {
+      alert('Uh-oh! Something went wrong');
     });
   }
 
@@ -148,6 +177,11 @@ class App extends React.Component {
             <input type="submit" value="CREATE YOUR ACCOUNT!"></input>
           </form>
         </div>
+      )
+    }
+    if(this.state.loggedIn === true) {
+      return (
+        <Bot name={this.state.name} />
       )
     }
   }

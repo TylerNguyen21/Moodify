@@ -1,14 +1,14 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : 'password',
   database : 'moodify'
 });
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM items', function(err, results, fields) {
+const grabAllUsers = function(callback) {
+  connection.query('SELECT username FROM users', function(err, results) {
     if(err) {
       callback(err, null);
     } else {
@@ -17,8 +17,30 @@ var selectAll = function(callback) {
   });
 };
 
+const loginChecker = (username, callback) => {
+  connection.query(`SELECT password, name FROM users WHERE username = '${username}'`, (error, results)=> {
+    if (error) {
+      callback(error, null);
+    } else {
+      callback(null, results);
+    }
+  })
+} 
+
+const newUser = (params, callback) => {
+  connection.query(`INSERT INTO users (username, name, password, email) VALUES (?, ?, ?, ?)`, params, (err, result) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
+    }
+  })
+}
+
 module.exports = {
   connection,
-  selectAll
+  grabAllUsers,
+  loginChecker,
+  newUser
 }
   
