@@ -1,19 +1,15 @@
+require('dotenv').config({ path: '../variables.env' });
 var express = require('express');
 var bodyParser = require('body-parser');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
 var db = require('../database-mysql');
-// var items = require('../database-mongo');
 const cors = require('cors');
 var app = express();
+const processMessage = require('../process-message.js')
 
-// UNCOMMENT FOR REACT
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
 
 app.get('/users', function (req, res) {
   db.grabAllUsers(function(err, data) {
@@ -48,8 +44,9 @@ app.post('/creation', (req, res) => {
   })
 })
 
-app.post('/moodify', (req, res)=> {
-
+app.post('/moodify', (req, res) => {
+  const { message } = req.body;
+  processMessage(message);
 });
 
 
