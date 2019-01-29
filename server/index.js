@@ -4,12 +4,12 @@ var bodyParser = require('body-parser');
 var db = require('../database-mysql');
 const cors = require('cors');
 var app = express();
-const processMessage = require('../process-message.js')
+const processMessage = require('../process-message')
 
+app.use(cors());
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors());
 
 app.get('/users', function (req, res) {
   db.grabAllUsers(function(err, data) {
@@ -51,7 +51,8 @@ app.post('/moodify', (req, res) => {
 
 
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
-});
+app.set('port', process.env.PORT || 3000);
+    const server = app.listen(app.get('port'), () => {
+      console.log(`Express running → PORT ${server.address().port}`);
+    });
 

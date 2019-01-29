@@ -44,7 +44,7 @@ class Bot extends React.Component {
     this.setState(change);
   }
 
-  handleSubmit () {
+  handleSubmit (e) {
     if (!this.state.userMsg.trim()) {
       return;
     }
@@ -52,7 +52,7 @@ class Bot extends React.Component {
       text: this.state.userMsg,
       user: 'human',
     };
-    fetch('/moodify', {
+    fetch('http:localhost:3000/moodify', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
