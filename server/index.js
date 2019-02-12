@@ -1,15 +1,17 @@
-require('dotenv').config({ path: '../variables.env' });
-var express = require('express');
-var bodyParser = require('body-parser');
-var db = require('../database-mysql');
+require('dotenv').config({ path: './variables.env' });
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('../database-mysql');
 const cors = require('cors');
-var app = express();
-const processMessage = require('../process-message')
+const app = express();
+const processMessage = require('../process-message.js')
 
+app.use(express.static(path.join(__dirname, '/../react-client/dist')));
 app.use(cors());
-app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.get('/users', function (req, res) {
   db.grabAllUsers(function(err, data) {
@@ -45,8 +47,9 @@ app.post('/creation', (req, res) => {
 })
 
 app.post('/moodify', (req, res) => {
-  const { message } = req.body;
-  processMessage(message);
+  const { text } = req.body;
+  processMessage(text);
+  res.sendStatus(201);
 });
 
 

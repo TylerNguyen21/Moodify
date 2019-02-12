@@ -11,13 +11,12 @@ class Bot extends React.Component {
       userMsg: '',
       conversation: []
     }
-    this.getSongs = this.getSongs.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    const pusher = new Pusher('701886', {
+    const pusher = new Pusher('a34279746f39d5fd30e8', {
       cluster: 'us2',
       encrypted: true,
     });
@@ -34,17 +33,13 @@ class Bot extends React.Component {
     });
   }
 
-  getSongs() {
-
-  }
-
   handleInput (e) {
     let change = {};
     change[e.target.name] = e.target.value
     this.setState(change);
   }
 
-  handleSubmit (e) {
+  handleSubmit () {
     if (!this.state.userMsg.trim()) {
       return;
     }
@@ -52,15 +47,17 @@ class Bot extends React.Component {
       text: this.state.userMsg,
       user: 'human',
     };
-    fetch('http:localhost:3000/moodify', {
+
+    this.setState({
+      conversation: [...this.state.conversation, msg],
+    });
+
+    fetch('/moodify', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
       body: JSON.stringify(msg)
-    })
-    .then((response) => {
-      console.log(response);
     })
     this.setState({
       userMsg: ''
@@ -96,19 +93,20 @@ class Bot extends React.Component {
       <div>
         <h1>Moodify</h1>
         <div className="chat-window">
-          <div className="conversation-view">{chat}</div>
           <div className="message-box">
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={(e) => {e.preventDefault(); this.handleSubmit()}}>
               <input
                 name='userMsg'
-                onInput={this.handleChange}
+                onChange={this.handleInput}
                 className="text-input"
                 type="text"
                 autoFocus
                 placeholder="Type your message and hit Enter to send"
               />
+               <input type="submit" ></input>
             </form>
           </div>
+          <div className="conversation-view">{chat}</div>
         </div>
       </div>
     );

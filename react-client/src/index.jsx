@@ -125,7 +125,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(info)
     })
-    .then((result) => {
+    .then(() => {
       alert('Congratulations you have made your account!');
       account.setState({
         user: account.state.name,

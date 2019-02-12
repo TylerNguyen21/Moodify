@@ -1,7 +1,6 @@
     const Dialogflow = require('dialogflow');
     const Pusher = require('pusher');
-    // You can find your project ID in your Dialogflow agent settings
-    const projectId = 'moodify-9185c'; //https://dialogflow.com/docs/agents#settings
+    const projectId = 'moodify-9185c';
     const sessionId = '123456';
     const languageCode = 'en-US';
 
