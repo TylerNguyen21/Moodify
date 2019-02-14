@@ -25,6 +25,8 @@ class Bot extends React.Component {
     channel.bind('bot-response', data => {
       const msg = {
         text: data.message,
+        playlist: data.playlist,
+        playListName: data.name,
         user: 'ai',
       };
       this.setState({
@@ -77,16 +79,17 @@ class Bot extends React.Component {
         </div>
       )
     }
-    const ChatBubble = (text, i, className) => {
+    const ChatBubble = (text, i, className, songs, playlist) => {
       return (
         <div key={`${className}-${i}`} className={`${className} chat-bubble`}>
           <span className="chat-content">{text}</span>
+          <a href={songs}>{playlist}</a>
         </div>
       );
     };
 
     const chat = this.state.conversation.map((e, index) =>
-      ChatBubble(e.text, index, e.user)
+      ChatBubble(e.text, index, e.user, e.playlist, e.playListName)
     );
 
     return (

@@ -3,6 +3,7 @@
     const projectId = 'moodify-9185c';
     const sessionId = '123456';
     const languageCode = 'en-US';
+    const spotify = require('./spotify.js')
 
     const config = {
       credentials: {
@@ -38,9 +39,28 @@
         .detectIntent(request)
         .then(responses => {
           const result = responses[0].queryResult;
-          return pusher.trigger('bot', 'bot-response', {
-            message: result.fulfillmentText,
-          });
+          const intent = result.intent.displayName
+          spotify.clientCredentialsGrant()
+            .then((data) => {
+              let token = data.body['access_token'];
+              spotify.setAccessToken(token)
+            })
+            .then(() => {
+              spotify.searchPlaylists(`${intent}`)
+              .then((data)=> {
+                let playlist = data.body.playlists.items[0]['external_urls'].spotify
+                let playListName = data.body.playlists.items[0].name
+                console.log(playlist);
+                return pusher.trigger('bot', 'bot-response', {
+                  message: result.fulfillmentText,
+                  playlist,
+                  name: playListName
+                });
+              }) 
+              .catch((err) => {
+                console.log("Something went wrong!", err);
+              });
+            })
         })
         .catch(err => {
           console.error('ERROR:', err);
