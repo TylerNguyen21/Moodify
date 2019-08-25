@@ -45,8 +45,8 @@ class App extends React.Component {
     })
     .then((data)=> {
       let accounts = {};
-      for (let x =0; x < data.length; x+=1) {
-        accounts[data[x]] = true;
+      for (let x =0; x < data.length; x++) {
+        accounts[data[x].username] = true;
       }
       this.setState({
         usersList: accounts
@@ -141,6 +141,7 @@ class App extends React.Component {
 
 
   render () {
+    console.log(this.state.usersList);
     if (this.state.oldUser === false && this.state.newUser === false) {
       return (
         <LoginPage user={this.handleUser}/>
