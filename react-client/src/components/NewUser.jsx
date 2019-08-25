@@ -1,0 +1,24 @@
+import React from 'react';
+
+const NewUser = (props) => {
+  let {checker, input} = props
+  return (
+    <div className="login-form">
+      <form onSubmit={(e) => {e.preventDefault(); checker()}}>
+        Name:
+        <input type="text" name="name" onChange={input}></input>
+        Username:
+        <input type="text" name="userName" onChange={input}></input>
+        Email:
+        <input type="text" name="email" onChange={input}></input>
+        Password:
+        <input type="text" name="password" onChange={input}></input>
+        Confirm Password:
+        <input type="text" name="confirmPass" onChange={input}></input>
+        <input type="submit" value="CREATE YOUR ACCOUNT!"></input>
+      </form>
+    </div>
+  )
+}
+
+export default NewUser;

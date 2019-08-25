@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Pusher from 'pusher-js';
-import Bot from './components/Bot.jsx'
+import Bot from './components/Bot.jsx';
+import LoginPage from './components/LoginPage.jsx';
+import OldUser from './components/OldUser.jsx';
+import NewUser from './components/NewUser.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -141,42 +143,18 @@ class App extends React.Component {
   render () {
     if (this.state.oldUser === false && this.state.newUser === false) {
       return (
-        <div className="login-form">
-          <button name="oldUser" onClick={(e) => {e.preventDefault(); this.handleUser('oldUser')}}>Existing User</button>
-          <button name="newUser" onClick={(e) => {e.preventDefault(); this.handleUser('newUser')}}>Create a new account!</button>
-        </div>
+        <LoginPage user={this.handleUser}/>
       )
     }
     if (this.state.oldUser === true  && this.state.loggedIn === false) {
       return (
-        <div className="login-form">
-          <form onSubmit={(e) => {e.preventDefault(); this.login()}}>
-            Username:
-            <input type="text" name="userName" onChange={this.handleInput}></input>
-            Password:
-            <input type="text" name="password" onChange={this.handleInput}></input>
-            <input type="submit" value="Login"></input>
-          </form>
-        </div>
+        <OldUser login={this.login} input={this.handleInput}/>
       )
     }
     if (this.state.newUser === true  && this.state.loggedIn === false) {
       return (
-        <div className="login-form">
-          <form onSubmit={(e) => {e.preventDefault(); this.passwordChecker()}}>
-            Name:
-            <input type="text" name="name" onChange={this.handleInput}></input>
-            Username:
-            <input type="text" name="userName" onChange={this.handleInput}></input>
-            Email:
-            <input type="text" name="email" onChange={this.handleInput}></input>
-            Password:
-            <input type="text" name="password" onChange={this.handleInput}></input>
-            Confirm Password:
-            <input type="text" name="confirmPass" onChange={this.handleInput}></input>
-            <input type="submit" value="CREATE YOUR ACCOUNT!"></input>
-          </form>
-        </div>
+        <NewUser checker={this.passwordChecker} 
+                   input={this.handleInput}/>
       )
     }
     if(this.state.loggedIn === true) {
