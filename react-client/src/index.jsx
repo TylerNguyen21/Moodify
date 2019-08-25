@@ -17,7 +17,7 @@ class App extends React.Component {
       password: '',
       confirmPass: '',
       email: '',
-      usersList: [],
+      usersList: {},
       name: ''
     }
     this.getUsers = this.getUsers.bind(this);
@@ -44,9 +44,9 @@ class App extends React.Component {
       return users.json();
     })
     .then((data)=> {
-      let accounts = [];
+      let accounts = {};
       for (let x =0; x < data.length; x+=1) {
-        accounts.push(data[x].username);
+        accounts[data[x]] = true;
       }
       this.setState({
         usersList: accounts
@@ -96,7 +96,7 @@ class App extends React.Component {
   }
 
   userNameChecker () {
-    if (this.state.usersList.includes(this.state.userName)) {
+    if (this.state.usersList[this.state.userName]) {
       alert(`The username you have chosen has already been taken`)
       return
     } else {
