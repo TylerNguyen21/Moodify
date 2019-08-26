@@ -141,7 +141,6 @@ class App extends React.Component {
 
 
   render () {
-    console.log(this.state.usersList);
     if (this.state.oldUser === false && this.state.newUser === false) {
       return (
         <LoginPage user={this.handleUser}/>
@@ -149,7 +148,8 @@ class App extends React.Component {
     }
     if (this.state.oldUser === true  && this.state.loggedIn === false) {
       return (
-        <OldUser login={this.login} input={this.handleInput}/>
+        <OldUser login={this.login} 
+                 input={this.handleInput}/>
       )
     }
     if (this.state.newUser === true  && this.state.loggedIn === false) {
