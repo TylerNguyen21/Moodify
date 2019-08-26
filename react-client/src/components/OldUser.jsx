@@ -8,7 +8,7 @@ const OldUser = (props) => {
         Username:
         <input type="text" name="userName" onChange={input}></input>
         Password:
-        <input type="text" name="password" onChange={input}></input>
+        <input type="password" name="password" onChange={input}></input>
         <input type="submit" value="Login"></input>
       </form>
     </div>

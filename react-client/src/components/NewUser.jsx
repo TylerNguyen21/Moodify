@@ -12,9 +12,9 @@ const NewUser = (props) => {
         Email:
         <input type="text" name="email" onChange={input}></input>
         Password:
-        <input type="text" name="password" onChange={input}></input>
+        <input type="password" name="password" onChange={input}></input>
         Confirm Password:
-        <input type="text" name="confirmPass" onChange={input}></input>
+        <input type="password" name="confirmPass" onChange={input}></input>
         <input type="submit" value="CREATE YOUR ACCOUNT!"></input>
       </form>
     </div>
