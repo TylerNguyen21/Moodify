@@ -5,11 +5,12 @@ const bodyParser = require('body-parser');
 const db = require('../database-mysql');
 const cors = require('cors');
 const app = express();
-const processMessage = require('../process-message.js')
-// const twilio = require('twilio');
-// var accountSid = '';
-// var authToken = '';
-// const client = new twilio(accountSid, authToken);
+const processMessage = require('../process-message.js');
+const authyKey = process.env.AUTHY_API_KEY;
+const twilio = require('twilio');
+var accountSid = process.env.TWILIO_ACCOUNTSID;
+var authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = new twilio(accountSid, authToken);
 
 app.use(express.static(path.join(__dirname, '/../react-client/dist')));
 app.use(cors());

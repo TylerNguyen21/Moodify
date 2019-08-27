@@ -37,6 +37,7 @@
     "request": "^2.88.0",
     "spotify-web-api-node": "^4.0.0",
     "sudo": "^1.0.3",
+    "twilio": "^3.33.4",
     "uuid": "^3.3.2"
   },
   "repository": {
