@@ -15,6 +15,8 @@ const NewUser = (props) => {
         <input type="password" name="password" onChange={input}></input>
         Confirm Password:
         <input type="password" name="confirmPass" onChange={input}></input>
+        Mobile Phone:
+        <input type="tel" name="phone" onChange={input}></input>
         <input type="submit" value="CREATE YOUR ACCOUNT!"></input>
       </form>
     </div>

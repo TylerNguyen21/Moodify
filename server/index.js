@@ -6,6 +6,10 @@ const db = require('../database-mysql');
 const cors = require('cors');
 const app = express();
 const processMessage = require('../process-message.js')
+// const twilio = require('twilio');
+// var accountSid = '';
+// var authToken = '';
+// const client = new twilio(accountSid, authToken);
 
 app.use(express.static(path.join(__dirname, '/../react-client/dist')));
 app.use(cors());
@@ -36,7 +40,7 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/creation', (req, res) => {
-  let params = [req.body.username, req.body.name, req.body.password, req.body.email];
+  let params = [req.body.username, req.body.name, req.body.password, req.body.email, req.body.phone, false];
   db.newUser(params, (err, result)=> {
     if (err) {
       throw err;

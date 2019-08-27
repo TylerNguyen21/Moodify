@@ -18,7 +18,8 @@ class App extends React.Component {
       confirmPass: '',
       email: '',
       usersList: {},
-      name: ''
+      name: '',
+      phone: ''
     }
     this.getUsers = this.getUsers.bind(this);
     this.handleUser = this.handleUser.bind(this);
@@ -118,7 +119,8 @@ class App extends React.Component {
       username: this.state.userName,
       name: this.state.name,
       password: this.state.password,
-      email: this.state.email
+      email: this.state.email,
+      phone: this.state.phone
     };
     fetch('/creation', {
       method: 'POST',

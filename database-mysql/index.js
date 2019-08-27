@@ -28,7 +28,7 @@ const loginChecker = (username, callback) => {
 } 
 
 const newUser = (params, callback) => {
-  connection.query(`INSERT INTO users (username, name, password, email) VALUES (?, ?, ?, ?)`, params, (err, result) => {
+  connection.query(`INSERT INTO users (username, name, password, email, phone) VALUES (?, ?, ?, ?, ?, ?)`, params, (err, result) => {
     if (err) {
       callback(err, null);
     } else {

@@ -9,6 +9,6 @@ CREATE TABLE users (
   name varchar(200) NOT NULL,
   password varchar(200) NOT NULL,
   email varchar(200) NOT NULL,
-  phone varchar(200) NOT NULL,
+  phone varchar(50) NOT NULL,
   verified boolean NOT NULL
 );
