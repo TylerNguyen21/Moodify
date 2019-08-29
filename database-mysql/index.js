@@ -28,7 +28,7 @@ const loginChecker = (username, callback) => {
 } 
 
 const newUser = (params, callback) => {
-  connection.query(`INSERT INTO users (username, name, password, email, phone) VALUES (?, ?, ?, ?, ?, ?)`, params, (err, result) => {
+  connection.query(`INSERT INTO users (username, name, password, email, phone, verified) VALUES (?, ?, ?, ?, ?, ?)`, params, (err, result) => {
     if (err) {
       callback(err, null);
     } else {
@@ -37,10 +37,21 @@ const newUser = (params, callback) => {
   })
 }
 
+const phoneVerifier = (user, callback) => {
+  connection.query(`UPDATE users SET verified=${true} WHERE username='${user}'`), (err, result) => {
+    if (err) {
+      callback (err, null);
+    } else {
+      callback(null, result);
+    }
+  }
+}
+
 module.exports = {
   connection,
   grabAllUsers,
   loginChecker,
-  newUser
+  newUser,
+  phoneVerifier
 }
   

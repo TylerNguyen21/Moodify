@@ -6,11 +6,11 @@ const db = require('../database-mysql');
 const cors = require('cors');
 const app = express();
 const processMessage = require('../process-message.js');
-const authyKey = process.env.AUTHY_API_KEY;
 const twilio = require('twilio');
 var accountSid = process.env.TWILIO_ACCOUNTSID;
 var authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = new twilio(accountSid, authToken);
+const serviceSid = process.env.TWILIO_SERVICESID
 
 app.use(express.static(path.join(__dirname, '/../react-client/dist')));
 app.use(cors());
@@ -46,17 +46,37 @@ app.post('/creation', (req, res) => {
     if (err) {
       throw err;
     } else {
+      client.verify.services(serviceSid)
+             .verifications 
+             .create({to: `+1${req.body.phone}`, channel: 'sms'});
       res.status(201).send(result);
     }
   })
+});
+
+app.patch('/verify', (req, res)=> {
+  client.verify.services(serviceSid)
+               .verificationChecks
+               .create({to: `+1${req.body.phone}`, code:`${req.body.code}`})
+               .then(verification_check => {if(verification_check.status === 'approved') {
+                db.phoneVerifier(req.body.username, (err, result) => {
+                  if (err) {
+                    throw err;
+                  } else {
+                    res.status(202).send(result)
+                  }
+                })
+               } else {
+                 res.status(401).send('Wrong code');
+               }})
 })
+
 
 app.post('/moodify', (req, res) => {
   const { text } = req.body;
   processMessage(text);
   res.sendStatus(201);
 });
-
 
 
 app.set('port', process.env.PORT || 3000);

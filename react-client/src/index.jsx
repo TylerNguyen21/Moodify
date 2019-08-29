@@ -28,6 +28,15 @@ class App extends React.Component {
     this.accountCreation = this.accountCreation.bind(this);
     this.userNameChecker = this.userNameChecker.bind(this);
     this.passwordChecker = this.passwordChecker.bind(this);
+    this.returnHome = this.returnHome.bind(this);
+  }
+
+  returnHome () {
+    this.setState({
+      oldUser: false,
+      newUser: false,
+      loggedIn: false
+    })
   }
 
   componentDidMount() {
@@ -79,7 +88,6 @@ class App extends React.Component {
         });
     })
     .catch((error) => {
-      console.log(error);
       alert('You have the wrong username/password combination')
     })
   }
@@ -130,10 +138,9 @@ class App extends React.Component {
       body: JSON.stringify(info)
     })
     .then(() => {
-      alert('Congratulations you have made your account!');
+      alert('Congratulations you have made your account! Please verify your phone Number');
       account.setState({
-        user: account.state.name,
-        loggedIn: true
+        user: account.state.name
       });
     })
     .catch((error) => {
@@ -157,7 +164,9 @@ class App extends React.Component {
     if (this.state.newUser === true  && this.state.loggedIn === false) {
       return (
         <NewUser checker={this.passwordChecker} 
-                   input={this.handleInput}/>
+                   input={this.handleInput}
+                   phone={this.state.phone}
+                   user={this.state.userName}/>
       )
     }
     if(this.state.loggedIn === true) {

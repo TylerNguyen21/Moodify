@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS moodify;
+WDROP DATABASE IF EXISTS moodify;
 CREATE DATABASE moodify;
 
 use moodify;
