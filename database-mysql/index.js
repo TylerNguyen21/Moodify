@@ -18,7 +18,7 @@ const grabAllUsers = function(callback) {
 };
 
 const loginChecker = (username, callback) => {
-  connection.query(`SELECT password, name FROM users WHERE username = '${username}'`, (error, results)=> {
+  connection.query(`SELECT password, name FROM users WHERE username = ?`, [username], (error, results)=> {
     if (error) {
       callback(error, null);
     } else {
@@ -38,7 +38,7 @@ const newUser = (params, callback) => {
 }
 
 const phoneVerifier = (user, callback) => {
-  connection.query(`UPDATE users SET verified=${true} WHERE username='${user}'`), (err, result) => {
+  connection.query(`UPDATE users SET verified=${true} WHERE username= ?`), [user],(err, result) => {
     if (err) {
       callback (err, null);
     } else {

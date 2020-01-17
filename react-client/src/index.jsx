@@ -166,7 +166,8 @@ class App extends React.Component {
         <NewUser checker={this.passwordChecker} 
                    input={this.handleInput}
                    phone={this.state.phone}
-                   user={this.state.userName}/>
+                   user={this.state.userName}
+                   home={this.returnHome}/>
       )
     }
     if(this.state.loggedIn === true) {

@@ -49,7 +49,7 @@ class NewUser extends React.Component{
   }
 
   render() {
-    let {checker, input} = this.props
+    let {checker, input, home} = this.props
     if (this.state.first) {
       return (
         <div className="login-form">
@@ -83,7 +83,7 @@ class NewUser extends React.Component{
       return (
         <div>
           <p>Congratulations you are now verified!  Please return to the home screen to login!</p>
-          <button value="Click here to return home" onClick />
+          <button value="Click here to return home" onClick={home}/>
         </div>
       )
     }
